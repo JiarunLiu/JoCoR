@@ -57,7 +57,7 @@ if args.dataset == 'mnist':
     init_epoch = 0
     filter_outlier = True
     args.epoch_decay_start = 80
-    args.model_type = "mlp"
+    args.model_type = "cnn"
     # args.n_epoch = 200
     train_dataset = MNIST(root='./../Co-Correcting_plus/data/mnist/',
                           download=False,
