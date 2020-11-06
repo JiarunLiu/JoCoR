@@ -63,7 +63,7 @@ if args.dataset == 'mnist':
     args.model_type = "mlp"
     # args.n_epoch = 200
     train_dataset = MNIST(root='./../Co-Correcting_plus/data/mnist/',
-                          download=True,
+                          download=False,
                           train=True,
                           transform=transforms.ToTensor(),
                           noise_type=args.noise_type,
@@ -71,7 +71,7 @@ if args.dataset == 'mnist':
                           )
 
     test_dataset = MNIST(root='./../Co-Correcting_plus/Cocodata/mnist/',
-                         download=True,
+                         download=False,
                          train=False,
                          transform=transforms.ToTensor(),
                          noise_type=args.noise_type,
@@ -87,7 +87,7 @@ if args.dataset == 'cifar10':
     args.model_type = "cnn"
     # args.n_epoch = 200
     train_dataset = CIFAR10(root='./../Co-Correcting_plus/data/cifar10/',
-                            download=True,
+                            download=False,
                             train=True,
                             transform=transforms.ToTensor(),
                             noise_type=args.noise_type,
@@ -95,7 +95,7 @@ if args.dataset == 'cifar10':
                             )
 
     test_dataset = CIFAR10(root='./../Co-Correcting_plus/data/cifar10/',
-                           download=True,
+                           download=False,
                            train=False,
                            transform=transforms.ToTensor(),
                            noise_type=args.noise_type,
@@ -113,7 +113,7 @@ if args.dataset == 'cifar100':
 
 
     train_dataset = CIFAR100(root='./../Co-Correcting_plus/data/cifar100/',
-                             download=True,
+                             download=False,
                              train=True,
                              transform=transforms.ToTensor(),
                              noise_type=args.noise_type,
@@ -121,7 +121,7 @@ if args.dataset == 'cifar100':
                              )
 
     test_dataset = CIFAR100(root='./../Co-Correcting_plus/data/cifar100/',
-                            download=True,
+                            download=False,
                             train=False,
                             transform=transforms.ToTensor(),
                             noise_type=args.noise_type,
