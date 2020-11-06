@@ -22,7 +22,7 @@ parser.add_argument('--num_gradual', type=int, default=10,
 parser.add_argument('--exponent', type=float, default=1,
                     help='exponent of the forget rate, can be 0.5, 1, 2. This parameter is equal to c in Tc for R(T) in Co-teaching paper.')
 parser.add_argument('--dataset', type=str, help='mnist, cifar10, or cifar100', default='mnist')
-parser.add_argument('--n_epoch', type=int, default=200)
+parser.add_argument('--n_epoch', type=int, default=320)
 parser.add_argument('--seed', type=int, default=1)
 parser.add_argument('--print_freq', type=int, default=50)
 parser.add_argument('--num_workers', type=int, default=4, help='how many subprocesses to use for data loading')
@@ -60,9 +60,9 @@ if args.dataset == 'mnist':
     init_epoch = 0
     filter_outlier = True
     args.epoch_decay_start = 80
-    args.model_type = "cnn"
+    args.model_type = "mlp"
     # args.n_epoch = 200
-    train_dataset = MNIST(root='./../Co-correcting_plus/data/mnist/',
+    train_dataset = MNIST(root='./../Co-Correcting_plus/data/mnist/',
                           download=True,
                           train=True,
                           transform=transforms.ToTensor(),
@@ -70,7 +70,7 @@ if args.dataset == 'mnist':
                           noise_rate=args.noise_rate
                           )
 
-    test_dataset = MNIST(root='./../Co-correcting_plus/Cocodata/mnist/',
+    test_dataset = MNIST(root='./../Co-Correcting_plus/Cocodata/mnist/',
                          download=True,
                          train=False,
                          transform=transforms.ToTensor(),
@@ -86,7 +86,7 @@ if args.dataset == 'cifar10':
     filter_outlier = True
     args.model_type = "cnn"
     # args.n_epoch = 200
-    train_dataset = CIFAR10(root='./../Co-correcting_plus/data/cifar10/',
+    train_dataset = CIFAR10(root='./../Co-Correcting_plus/data/cifar10/',
                             download=True,
                             train=True,
                             transform=transforms.ToTensor(),
@@ -94,7 +94,7 @@ if args.dataset == 'cifar10':
                             noise_rate=args.noise_rate
                             )
 
-    test_dataset = CIFAR10(root='./../Co-correcting_plus/data/cifar10/',
+    test_dataset = CIFAR10(root='./../Co-Correcting_plus/data/cifar10/',
                            download=True,
                            train=False,
                            transform=transforms.ToTensor(),
@@ -112,7 +112,7 @@ if args.dataset == 'cifar100':
     args.model_type = "cnn"
 
 
-    train_dataset = CIFAR100(root='./../Co-correcting_plus/data/cifar100/',
+    train_dataset = CIFAR100(root='./../Co-Correcting_plus/data/cifar100/',
                              download=True,
                              train=True,
                              transform=transforms.ToTensor(),
@@ -120,7 +120,7 @@ if args.dataset == 'cifar100':
                              noise_rate=args.noise_rate
                              )
 
-    test_dataset = CIFAR100(root='./../Co-correcting_plus/data/cifar100/',
+    test_dataset = CIFAR100(root='./../Co-Correcting_plus/data/cifar100/',
                             download=True,
                             train=False,
                             transform=transforms.ToTensor(),
