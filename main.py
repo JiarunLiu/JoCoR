@@ -60,9 +60,9 @@ if args.dataset == 'mnist':
     init_epoch = 0
     filter_outlier = True
     args.epoch_decay_start = 80
-    args.model_type = "mlp"
+    args.model_type = "cnn"
     # args.n_epoch = 200
-    train_dataset = MNIST(root='./data/',
+    train_dataset = MNIST(root='./../Co-correcting_plus/data/mnist/',
                           download=True,
                           train=True,
                           transform=transforms.ToTensor(),
@@ -70,7 +70,7 @@ if args.dataset == 'mnist':
                           noise_rate=args.noise_rate
                           )
 
-    test_dataset = MNIST(root='./data/',
+    test_dataset = MNIST(root='./../Co-correcting_plus/Cocodata/mnist/',
                          download=True,
                          train=False,
                          transform=transforms.ToTensor(),
@@ -86,7 +86,7 @@ if args.dataset == 'cifar10':
     filter_outlier = True
     args.model_type = "cnn"
     # args.n_epoch = 200
-    train_dataset = CIFAR10(root='./data/',
+    train_dataset = CIFAR10(root='./../Co-correcting_plus/data/cifar10/',
                             download=True,
                             train=True,
                             transform=transforms.ToTensor(),
@@ -94,7 +94,7 @@ if args.dataset == 'cifar10':
                             noise_rate=args.noise_rate
                             )
 
-    test_dataset = CIFAR10(root='./data/',
+    test_dataset = CIFAR10(root='./../Co-correcting_plus/data/cifar10/',
                            download=True,
                            train=False,
                            transform=transforms.ToTensor(),
@@ -112,7 +112,7 @@ if args.dataset == 'cifar100':
     args.model_type = "cnn"
 
 
-    train_dataset = CIFAR100(root='./data/',
+    train_dataset = CIFAR100(root='./../Co-correcting_plus/data/cifar100/',
                              download=True,
                              train=True,
                              transform=transforms.ToTensor(),
@@ -120,7 +120,7 @@ if args.dataset == 'cifar100':
                              noise_rate=args.noise_rate
                              )
 
-    test_dataset = CIFAR100(root='./data/',
+    test_dataset = CIFAR100(root='./../Co-correcting_plus/data/cifar100/',
                             download=True,
                             train=False,
                             transform=transforms.ToTensor(),
