@@ -70,7 +70,7 @@ if args.dataset == 'mnist':
                           noise_rate=args.noise_rate
                           )
 
-    test_dataset = MNIST(root='./../Co-Correcting_plus/Cocodata/mnist/',
+    test_dataset = MNIST(root='./../Co-Correcting_plus/data/mnist/',
                          download=False,
                          train=False,
                          transform=transforms.ToTensor(),
