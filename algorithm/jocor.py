@@ -49,8 +49,12 @@ class JoCoR:
         self.train_dataset = train_dataset
 
         if args.model_type == "cnn":
-            self.model1 = CNN(input_channel=input_channel, n_outputs=num_classes)
-            self.model2 = CNN(input_channel=input_channel, n_outputs=num_classes)
+            if args.dataset == 'mnist':
+                self.model1 = CNN(input_channel=input_channel, n_outputs=num_classes, linear_num=144)
+                self.model2 = CNN(input_channel=input_channel, n_outputs=num_classes, linear_num=144)
+            else:
+                self.model1 = CNN(input_channel=input_channel, n_outputs=num_classes)
+                self.model2 = CNN(input_channel=input_channel, n_outputs=num_classes)
         elif args.model_type == "mlp":
             self.model1 = MLPNet()
             self.model2 = MLPNet()

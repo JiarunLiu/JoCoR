@@ -74,6 +74,21 @@ if args.dataset == 'mnist':
                          noise_type=args.noise_type,
                          noise_rate=args.noise_rate
                          )
+    # train_dataset = MNIST(root='./../../dataset/MNIST/',
+    #                       download=False,
+    #                       train=True,
+    #                       transform=transforms.ToTensor(),
+    #                       noise_type=args.noise_type,
+    #                       noise_rate=args.noise_rate
+    #                       )
+    #
+    # test_dataset = MNIST(root='./../../dataset/MNIST/',
+    #                      download=False,
+    #                      train=False,
+    #                      transform=transforms.ToTensor(),
+    #                      noise_type=args.noise_type,
+    #                      noise_rate=args.noise_rate
+    #                      )
 
 if args.dataset == 'cifar10':
     input_channel = 3

@@ -9,7 +9,7 @@ def call_bn(bn, x):
     return bn(x)
 
 class CNN(nn.Module):
-    def __init__(self, input_channel=3, n_outputs=10, dropout_rate=0.25, momentum=0.1):
+    def __init__(self, input_channel=3, n_outputs=10, dropout_rate=0.25, momentum=0.1, linear_num=256):
         self.dropout_rate = dropout_rate
         self.momentum = momentum
         super(CNN, self).__init__()
@@ -19,7 +19,7 @@ class CNN(nn.Module):
         self.c4=nn.Conv2d(128,128,kernel_size=3,stride=1, padding=1)
         self.c5=nn.Conv2d(128,196,kernel_size=3,stride=1, padding=1)
         self.c6=nn.Conv2d(196,16,kernel_size=3,stride=1, padding=1)
-        self.linear1=nn.Linear(256, n_outputs)
+        self.linear1=nn.Linear(linear_num, n_outputs)
         self.bn1=nn.BatchNorm2d(64, momentum=self.momentum)
         self.bn2=nn.BatchNorm2d(64, momentum=self.momentum)
         self.bn3=nn.BatchNorm2d(128, momentum=self.momentum)
