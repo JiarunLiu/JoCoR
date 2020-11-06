@@ -8,12 +8,11 @@ import argparse, sys
 import datetime
 from algorithm.jocor import JoCoR
 
-
-
+import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--lr', type=float, default=0.001)
-parser.add_argument('--result_dir', type=str, help='dir to save result txt files', default='results')
+parser.add_argument('--result_dir', type=str, help='dir to save result json files', default='results')
 parser.add_argument('--noise_rate', type=float, help='corruption rate, should be less than 1', default=0.2)
 parser.add_argument('--forget_rate', type=float, help='forget rate', default=None)
 parser.add_argument('--noise_type', type=str, help='[pairflip, symmetric, asymmetric]', default='pairflip')
@@ -34,8 +33,6 @@ parser.add_argument('--adjust_lr', type=int, default=1)
 parser.add_argument('--model_type', type=str, help='[mlp,cnn]', default='cnn')
 parser.add_argument('--save_model', type=str, help='save model?', default="False")
 parser.add_argument('--save_result', type=str, help='save result?', default="True")
-
-
 
 args = parser.parse_args()
 
@@ -111,7 +108,6 @@ if args.dataset == 'cifar100':
     filter_outlier = False
     args.model_type = "cnn"
 
-
     train_dataset = CIFAR100(root='./../Co-Correcting_plus/data/cifar100/',
                              download=False,
                              train=True,
@@ -132,7 +128,6 @@ if args.forget_rate is None:
     forget_rate = args.noise_rate
 else:
     forget_rate = args.forget_rate
-
 
 
 def main():
@@ -165,8 +160,16 @@ def main():
         'Epoch [%d/%d] Test Accuracy on the %s test images: Model1 %.4f %% Model2 %.4f ' % (
             epoch + 1, args.n_epoch, len(test_dataset), test_acc1, test_acc2))
 
-
     acc_list = []
+    record_dict = {
+        'train1': {'acc': []},
+        'train2': {'acc': []},
+        'test1': {'acc': []},
+        'test2': {'acc': []},
+        'val1': {'acc': []},
+        'val2': {'acc': []},
+    }
+    os.makedirs(args.result_dir, exist_ok=True)
     # training
     for epoch in range(1, args.n_epoch):
         # train models
@@ -189,11 +192,18 @@ def main():
                     epoch + 1, args.n_epoch, len(test_dataset), test_acc1, test_acc2, mean_pure_ratio1,
                     mean_pure_ratio2))
 
-
         if epoch >= 190:
             acc_list.extend([test_acc1, test_acc2])
+        record_dict['train1']['acc'].append(train_acc1)
+        record_dict['train2']['acc'].append(train_acc2)
+        record_dict['val1']['acc'].append(test_acc1)
+        record_dict['val2']['acc'].append(test_acc2)
+        record_dict['test1']['acc'].append(test_acc1)
+        record_dict['test2']['acc'].append(test_acc2)
+        with open(os.path.join(args.result_dir, 'record.json'), 'w') as f:
+            json.dump(record_dict, f, indent=4, sort_keys=True)
 
-    avg_acc = sum(acc_list)/len(acc_list)
+    avg_acc = sum(acc_list) / len(acc_list)
     print(len(acc_list))
     print("the average acc in last 10 epochs: {}".format(str(avg_acc)))
 
