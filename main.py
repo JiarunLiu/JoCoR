@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import os
 import torch
+import torchvision
 import torchvision.transforms as transforms
 from data.cifar import CIFAR10, CIFAR100
 from data.mnist import MNIST
@@ -59,10 +60,15 @@ if args.dataset == 'mnist':
     args.epoch_decay_start = 80
     args.model_type = "cnn"
     # args.n_epoch = 200
+    transform1 = torchvision.transforms.Compose([
+        torchvision.transforms.RandomPerspective(),
+        torchvision.transforms.ColorJitter(0.2, 0.75, 0.25, 0.04),
+        torchvision.transforms.ToTensor(),
+    ])
     train_dataset = MNIST(root='./../Co-Correcting_plus/data/mnist/',
                           download=False,
                           train=True,
-                          transform=transforms.ToTensor(),
+                          transform=transform1,
                           noise_type=args.noise_type,
                           noise_rate=args.noise_rate
                           )
@@ -98,10 +104,15 @@ if args.dataset == 'cifar10':
     filter_outlier = True
     args.model_type = "cnn"
     # args.n_epoch = 200
+    transform1 = torchvision.transforms.Compose([
+        torchvision.transforms.RandomHorizontalFlip(),
+        torchvision.transforms.RandomCrop(32, 4),
+        torchvision.transforms.ToTensor(),
+    ])
     train_dataset = CIFAR10(root='./../Co-Correcting_plus/data/cifar10/',
                             download=False,
                             train=True,
-                            transform=transforms.ToTensor(),
+                            transform=transform1,
                             noise_type=args.noise_type,
                             noise_rate=args.noise_rate
                             )
