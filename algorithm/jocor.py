@@ -9,6 +9,7 @@ from common.utils import accuracy
 
 from algorithm.loss import loss_jocor
 
+from model.resnet import resnet18, resnet34, resnet50, resnet101, resnet152
 
 class JoCoR:
     def __init__(self, args, train_dataset, device, input_channel, num_classes):
@@ -58,6 +59,9 @@ class JoCoR:
         elif args.model_type == "mlp":
             self.model1 = MLPNet()
             self.model2 = MLPNet()
+        elif args.model_type == 'resnet50':
+            self.model1 = resnet50(pretrained=True, num_classes=num_classes)
+            self.model2 = resnet50(pretrained=True, num_classes=num_classes)
 
         self.model1.to(device)
         print(self.model1.parameters)
