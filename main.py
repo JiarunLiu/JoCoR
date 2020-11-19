@@ -36,6 +36,7 @@ parser.add_argument('--model_type', type=str, help='[mlp,cnn]', default='cnn')
 parser.add_argument('--save_model', type=str, help='save model?', default="False")
 parser.add_argument('--save_result', type=str, help='save result?', default="True")
 parser.add_argument('--optimizer', type=str, help='SGD or Adam?', default="SGD")
+parser.add_argument('--batch-size', dest='batch_size', type=int, help='batch size?', default=128)
 
 args = parser.parse_args()
 
@@ -50,7 +51,7 @@ else:
     torch.manual_seed(args.seed)
 
 # Hyper Parameters
-batch_size = 128
+batch_size = args.batch_size
 learning_rate = args.lr
 
 # load dataset
@@ -173,6 +174,7 @@ if args.dataset == 'isic':
 
     train_dataset = ISIC('/media/victoria/SSD-240G/JiarunLiu/datasets/ISIC-Archive-Downloader/NewData',
                          train=0,
+                         transform=transform,
                          noise_type=args.noise_type,
                          noise_rate=args.noise_rate,
                          device=1,
@@ -180,6 +182,7 @@ if args.dataset == 'isic':
                          image_size=224)
     test_dataset = ISIC('/media/victoria/SSD-240G/JiarunLiu/datasets/ISIC-Archive-Downloader/NewData',
                         train=1,
+                        transform=transform1,
                         noise_type='clean',
                         noise_rate=0.0,
                         device=1,
