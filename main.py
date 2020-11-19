@@ -10,6 +10,7 @@ import datetime
 from algorithm.jocor import JoCoR
 
 import json
+from data.ISIC import ISIC
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--lr', type=float, default=0.001)
@@ -34,6 +35,7 @@ parser.add_argument('--adjust_lr', type=int, default=1)
 parser.add_argument('--model_type', type=str, help='[mlp,cnn]', default='cnn')
 parser.add_argument('--save_model', type=str, help='save model?', default="False")
 parser.add_argument('--save_result', type=str, help='save result?', default="True")
+parser.add_argument('--optimizer', type=str, help='SGD or Adam?', default="SGD")
 
 args = parser.parse_args()
 
@@ -149,6 +151,41 @@ if args.dataset == 'cifar100':
                             noise_type=args.noise_type,
                             noise_rate=args.noise_rate
                             )
+
+if args.dataset == 'isic':
+    input_channel = 3
+    num_classes = 2
+    init_epoch = 0
+    args.epoch_decay_start = 80
+    args.model_type = 'resnet50'
+
+    transform = torchvision.transforms.Compose([
+        torchvision.transforms.RandomHorizontalFlip(p=0.5),
+        torchvision.transforms.RandomVerticalFlip(p=0.5),
+        torchvision.transforms.RandomRotation(degrees=[-180, 180]),
+        torchvision.transforms.Resize(224),
+        torchvision.transforms.ToTensor(),
+    ])
+    transform1 = torchvision.transforms.Compose([
+        torchvision.transforms.Resize(224),
+        torchvision.transforms.ToTensor(),
+    ])
+
+    train_dataset = ISIC('/media/victoria/SSD-240G/JiarunLiu/datasets/ISIC-Archive-Downloader/NewData',
+                         train=0,
+                         noise_type=args.noise_type,
+                         noise_rate=args.noise_rate,
+                         device=1,
+                         redux=None,
+                         image_size=224)
+    train_dataset = ISIC('/media/victoria/SSD-240G/JiarunLiu/datasets/ISIC-Archive-Downloader/NewData',
+                         train=1,
+                         noise_type='clean',
+                         noise_rate=0.0,
+                         device=1,
+                         redux=None,
+                         image_size=224)
+
 
 if args.forget_rate is None:
     forget_rate = args.noise_rate

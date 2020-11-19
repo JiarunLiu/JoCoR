@@ -65,8 +65,14 @@ class JoCoR:
         self.model2.to(device)
         print(self.model2.parameters)
 
-        self.optimizer = torch.optim.Adam(list(self.model1.parameters()) + list(self.model2.parameters()),
-                                          lr=learning_rate)
+        if args.optimizer == 'Adam' or args.optimizer == 'adam':
+            self.optimizer = torch.optim.Adam(list(self.model1.parameters()) + list(self.model2.parameters()),
+                                              lr=learning_rate)
+        elif args.optimizer == "SGD" or args.optimizer == 'sgd':
+            self.optimizer = torch.optim.SGD(list(self.model1.parameters()) + list(self.model2.parameters()),
+                                             lr=learning_rate, momentum=0.9, weight_decay=1e-3)
+        else:
+            raise NotImplementedError("ERROR: Optimizer {} not been implemented!".format(args.optimizer))
 
         self.loss_fn = loss_jocor
 
