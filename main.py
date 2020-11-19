@@ -178,13 +178,13 @@ if args.dataset == 'isic':
                          device=1,
                          redux=None,
                          image_size=224)
-    train_dataset = ISIC('/media/victoria/SSD-240G/JiarunLiu/datasets/ISIC-Archive-Downloader/NewData',
-                         train=1,
-                         noise_type='clean',
-                         noise_rate=0.0,
-                         device=1,
-                         redux=None,
-                         image_size=224)
+    test_dataset = ISIC('/media/victoria/SSD-240G/JiarunLiu/datasets/ISIC-Archive-Downloader/NewData',
+                        train=1,
+                        noise_type='clean',
+                        noise_rate=0.0,
+                        device=1,
+                        redux=None,
+                        image_size=224)
 
 
 if args.forget_rate is None:
