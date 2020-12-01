@@ -68,7 +68,7 @@ if args.dataset == 'mnist':
         # torchvision.transforms.ColorJitter(0.2, 0.75, 0.25, 0.04),
         torchvision.transforms.ToTensor(),
     ])
-    train_dataset = MNIST(root='./../Co-Correcting_plus/data/mnist/',
+    train_dataset = MNIST(root='./../Co-correcting_plus/data/mnist/',
                           download=False,
                           train=True,
                           transform=transform1,
@@ -76,7 +76,7 @@ if args.dataset == 'mnist':
                           noise_rate=args.noise_rate
                           )
 
-    test_dataset = MNIST(root='./../Co-Correcting_plus/data/mnist/',
+    test_dataset = MNIST(root='./../Co-correcting_plus/data/mnist/',
                          download=False,
                          train=False,
                          transform=transforms.ToTensor(),
@@ -112,7 +112,7 @@ if args.dataset == 'cifar10':
         # torchvision.transforms.RandomCrop(32, 4),
         torchvision.transforms.ToTensor(),
     ])
-    train_dataset = CIFAR10(root='./../Co-Correcting_plus/data/cifar10/',
+    train_dataset = CIFAR10(root='./../Co-correcting_plus/data/cifar10/',
                             download=False,
                             train=True,
                             transform=transform1,
@@ -120,7 +120,7 @@ if args.dataset == 'cifar10':
                             noise_rate=args.noise_rate
                             )
 
-    test_dataset = CIFAR10(root='./../Co-Correcting_plus/data/cifar10/',
+    test_dataset = CIFAR10(root='./../Co-correcting_plus/data/cifar10/',
                            download=False,
                            train=False,
                            transform=transforms.ToTensor(),
@@ -137,7 +137,7 @@ if args.dataset == 'cifar100':
     filter_outlier = False
     args.model_type = "cnn"
 
-    train_dataset = CIFAR100(root='./../Co-Correcting_plus/data/cifar100/',
+    train_dataset = CIFAR100(root='./../Co-correcting_plus/data/cifar100/',
                              download=False,
                              train=True,
                              transform=transforms.ToTensor(),
@@ -145,7 +145,7 @@ if args.dataset == 'cifar100':
                              noise_rate=args.noise_rate
                              )
 
-    test_dataset = CIFAR100(root='./../Co-Correcting_plus/data/cifar100/',
+    test_dataset = CIFAR100(root='./../Co-correcting_plus/data/cifar100/',
                             download=False,
                             train=False,
                             transform=transforms.ToTensor(),
