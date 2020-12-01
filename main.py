@@ -61,11 +61,11 @@ if args.dataset == 'mnist':
     init_epoch = 0
     filter_outlier = True
     args.epoch_decay_start = 80
-    args.model_type = "cnn"
+    args.model_type = "mlp"
     # args.n_epoch = 200
     transform1 = torchvision.transforms.Compose([
-        torchvision.transforms.RandomPerspective(),
-        torchvision.transforms.ColorJitter(0.2, 0.75, 0.25, 0.04),
+        # torchvision.transforms.RandomPerspective(),
+        # torchvision.transforms.ColorJitter(0.2, 0.75, 0.25, 0.04),
         torchvision.transforms.ToTensor(),
     ])
     train_dataset = MNIST(root='./../Co-Correcting_plus/data/mnist/',
@@ -108,8 +108,8 @@ if args.dataset == 'cifar10':
     args.model_type = "cnn"
     # args.n_epoch = 200
     transform1 = torchvision.transforms.Compose([
-        torchvision.transforms.RandomHorizontalFlip(),
-        torchvision.transforms.RandomCrop(32, 4),
+        # torchvision.transforms.RandomHorizontalFlip(),
+        # torchvision.transforms.RandomCrop(32, 4),
         torchvision.transforms.ToTensor(),
     ])
     train_dataset = CIFAR10(root='./../Co-Correcting_plus/data/cifar10/',
